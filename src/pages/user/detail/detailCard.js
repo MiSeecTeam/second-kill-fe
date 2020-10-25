@@ -1,10 +1,11 @@
 import React from "react";
 import BaseComponent from '../../../components/BaseComponent'
 import { Row, Col, Typography, Skeleton, Rate, Divider, Radio, Button } from 'antd';
+import {withRouter} from "react-router-dom";
 
 
 const { Text, Title } = Typography;
-export default class DetailCard extends BaseComponent {
+class DetailCard extends BaseComponent {
     constructor(props){
         super(props);
         this.state={
@@ -28,7 +29,7 @@ export default class DetailCard extends BaseComponent {
         this.setState({isLoading:false,skus:tempSkus})
     }
 
-    onChangeSku=(value)=>{
+    onChangeSku=({ target: { value } })=>{
         this.setState({skuId:value})
     }
 
@@ -65,13 +66,19 @@ export default class DetailCard extends BaseComponent {
                         </Row>
                         
                         <Row type='flex' justify='end' style={{width:"100%", marginTop:20}}>
-                            <Button icon="shopping-cart" size="large" style={{fontSize:18}}>Buy now</Button>
+                            <Button onClick={()=>{this.onClick(this.state.skuId)}} 
+                                icon="shopping-cart" size="large" style={{fontSize:18}}>Buy now</Button>
                         </Row>
                     </Row>
                 </Col>
             )
         }
     }
+    
+    onClick=(id)=>{
+        this.props.history.push({pathname:"/user/orderplace/"+id,state:{id}})
+    }
+
 
     render(){
         return (
@@ -112,3 +119,4 @@ const styles = {
     }
 }
 
+export default withRouter(DetailCard);

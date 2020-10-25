@@ -33,6 +33,11 @@ const mainRoutes = [//默认路由（其实是第二层，第一层在隔壁inde
                 path: "/detail",
                 icon: 'detail',
                 component: wrap(Pages.User.ItemDetail),
+            },
+            {
+                path: "/orderplace/:skuId",
+                icon: 'order',
+                component: wrap(Pages.User.OrderPlacing),
             }
         ]
     }
