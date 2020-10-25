@@ -77,7 +77,7 @@ class SignUp extends BaseComponent {
                 <Col>
                     <Row
                     style={styles.cardContainer}>
-                        <div style={styles.welcome}>Welcome to OCEANIA</div>
+                        <div style={styles.welcome}>Welcome to GD.COM</div>
                         <div style={styles.welcome2}>Sign up</div>
                         <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
                             <Row style={{width:"100%"}} type="flex" justify='center'>

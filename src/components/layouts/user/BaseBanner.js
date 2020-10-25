@@ -88,7 +88,7 @@ class BaseBanner extends BaseComponent {
                 id="title"
                 style={styles.title}
                 >
-                    OCEANIA
+                    GD.COM
                 </TweenOne>
 
                 <TweenOne
@@ -96,7 +96,7 @@ class BaseBanner extends BaseComponent {
                 id="title"
                 style={styles.title}
                 >
-                    Dependency Analysis
+                    Second Killing Site
                 </TweenOne>
 
                 <TweenOne

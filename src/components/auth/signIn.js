@@ -84,7 +84,7 @@ class SignIn extends BaseComponent {
                     <Row
                     style={styles.cardContainer} type="flex" justify='center'>
                         <Row type="flex" justify="start" style={styles.welcome}>
-                            Welcome to OCEANIA
+                            Welcome to GD.COM
                         </Row>
                         <Row type="flex" justify="start" style={styles.welcome2}>
                             Sign In
