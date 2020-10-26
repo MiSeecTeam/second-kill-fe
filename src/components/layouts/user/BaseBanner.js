@@ -4,7 +4,7 @@ import BannerAnim, { Element,Thumb } from 'rc-banner-anim';
 import TweenOne from 'rc-tween-one';
 import BaseComponent from '../../BaseComponent'
 import 'rc-banner-anim/assets/index.css';
-import back from './resource/back1.png'
+import back from './resource/back.jpeg'
 
 const BgElement = Element.BgElement;
 var count=0;
@@ -105,11 +105,11 @@ class BaseBanner extends BaseComponent {
                 style={styles.title2}
                 >
                     <Col lg={14} sm={24}>
-                        He travels fast who travels alone． 
+                        Consumerism is the selfish and frivolous collecting of products, or economic materialism. 
                     </Col>
                     <Col lg={10} sm={24}>
                         <Row type="flex" justify="end">
-                            -Rudyard Kipling
+                            -Anonymous
                         </Row>
                     </Col>
                 </TweenOne>
