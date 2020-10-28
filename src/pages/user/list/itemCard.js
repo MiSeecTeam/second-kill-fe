@@ -45,6 +45,7 @@ class ItemCard extends BaseComponent {
                 <CardActionArea>
                 <Row type="flex" justify="center"  style={{padding:20}}>
                     <img  style={styles.poster} src={watchImg300} />
+                    
                     <Row style={styles.container3} type='flex' justify='start'>
                         <Text style={{fontSize:24}} type="danger">{"￥"+this.props.price}</Text>
                     </Row>
