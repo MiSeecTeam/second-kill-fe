@@ -34,7 +34,7 @@ class ItemCard extends BaseComponent {
     }
     
     onClick=()=>{
-        this.props.history.push("/user/detail/")
+        this.props.history.push("/user/detail/"+this.props.itemId)
     }
 
 

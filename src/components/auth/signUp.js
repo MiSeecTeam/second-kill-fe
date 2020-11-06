@@ -44,7 +44,6 @@ class SignUp extends BaseComponent {
             let form = new FormData();
             form.append('username', values.username);
             form.append('password', md5(values.password));
-            form.append('name',values.username);
 
             var successAction = (result) => {
                 localStorage.setItem('user', JSON.stringify(result.content));

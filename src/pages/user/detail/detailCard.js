@@ -16,7 +16,7 @@ class DetailCard extends BaseComponent {
     }
 
     componentDidMount(){
-        this.timeout(700).then(()=>{
+        this.timeout(1400).then(()=>{
             this.dispDetail()
         })
     }

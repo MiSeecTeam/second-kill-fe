@@ -13,21 +13,30 @@ export class ItemDetail extends BaseComponent {
     constructor(props){
         super(props);
         this.state={
-            isLoading:true
+            isLoading:true,
+            item:{}
         }
     }
 
     componentDidMount(){
         this.timeout(700).then(()=>{
-            this.dispDetail()
+            let form = new FormData();
+            form.append('itemId', this.props.match.params.itemId);
+            
+            var successAction = (result) => {
+                this.setState({item:result.content,isLoading:false})
+            }
+
+            var unsuccessAction = (result) => {
+                this.pushNotification("danger", result.message);
+            }
+
+            this.post("/item/getItem", form, successAction, unsuccessAction)
         })
     }
 
-    dispDetail(){
-        this.setState({isLoading:false})
-    }
-
-    renderCard(){
+    renderCard=()=>{
+        const item = this.state.item
         if(this.state.isLoading){
             return (
                 <Col xs={12} sm={12} lg={8} style={{zIndex:1}}>
@@ -42,8 +51,8 @@ export class ItemDetail extends BaseComponent {
                 <Col xs={12} sm={12} lg={8} style={{zIndex:1}}>
                     <Row type='flex' justify='start' style={{marginTop:30}} >
                         <DetailCard 
-                        itemName="Wristwatch by Ted Baker London" 
-                        itemDesc="By the 1930s the wristwatch had almost completely supplanted the pocket watch."
+                        itemName={item.itemName}
+                        itemDesc={item.itemDesc}
                         price={1999.8}/>
                     </Row>
                 </Col>
