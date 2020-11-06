@@ -17,14 +17,29 @@ export class OrderPlacing extends BaseComponent {
     
     onClick=()=>{
         this.setState({loading:true})
-        this.timeout(2000).then(()=>{
+
+        let form = new FormData();
+        form.append('transactionId', this.loadStorage("user").id+(new Date()).getTime())
+        form.append('skuId', this.props.match.params.skuId);
+        form.append('userId', this.loadStorage("user").id)
+
+        var successAction = (result) => {
+            if(!result.content){
+                this.pushNotification("danger", result.message)
+            }
             this.pushNotification("success", "Order Placed! Redirecting to Payment")
             this.setState({loading:false})
             this.timeout(1000).then(()=>{
                 let orderId = 10001
                 this.props.history.push("/user/orderpay/"+orderId)
             })
-        })
+        }
+
+        var unsuccessAction = (result) => {
+            this.pushNotification("danger", result.message);
+        }
+
+        this.post("/kill/killItem", form, successAction, unsuccessAction)
     }
 
     render(){

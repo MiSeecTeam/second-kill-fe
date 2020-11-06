@@ -19,20 +19,19 @@ export class ItemDetail extends BaseComponent {
     }
 
     componentDidMount(){
-        this.timeout(700).then(()=>{
-            let form = new FormData();
-            form.append('itemId', this.props.match.params.itemId);
-            
-            var successAction = (result) => {
-                this.setState({item:result.content,isLoading:false})
-            }
+        
+        let form = new FormData();
+        form.append('itemId', this.props.match.params.itemId);
+        
+        var successAction = (result) => {
+            this.setState({item:result.content,isLoading:false})
+        }
 
-            var unsuccessAction = (result) => {
-                this.pushNotification("danger", result.message);
-            }
+        var unsuccessAction = (result) => {
+            this.pushNotification("danger", result.message);
+        }
 
-            this.post("/item/getItem", form, successAction, unsuccessAction)
-        })
+        this.post("/item/getItem", form, successAction, unsuccessAction)
     }
 
     renderCard=()=>{
