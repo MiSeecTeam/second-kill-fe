@@ -26,11 +26,12 @@ export class OrderPlacing extends BaseComponent {
         var successAction = (result) => {
             if(!result.content){
                 this.pushNotification("danger", result.message)
+                return;
             }
             this.pushNotification("success", "Order Placed! Redirecting to Payment")
             this.setState({loading:false})
             this.timeout(1000).then(()=>{
-                let orderId = 10001
+                let orderId = result.content.orderId
                 this.props.history.push("/user/orderpay/"+orderId)
             })
         }

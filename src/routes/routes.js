@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import * as Pages from "../pages";
 import UserLayout from '../components/layouts/user/UserLayout'
+import AdminLayout from '../components/layouts/admin/AdminLayout'
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
@@ -43,12 +44,40 @@ const mainRoutes = [//默认路由（其实是第二层，第一层在隔壁inde
                 path: "/orderplace/:skuId",
                 icon: 'order',
                 component: wrap(Pages.User.OrderPlacing),
+                auth:true
             },
             {
                 path: "/orderpay/:orderId",
                 icon: 'order',
                 component: wrap(Pages.User.OrderPayment),
+                auth:true
             }
+        ]
+    },
+    {
+        path: "/admin",
+        icon: 'admin',
+        component: AdminLayout,
+        children:[
+            {
+                path: "/home",
+                icon: 'home',
+                component: Pages.Admin.Home,
+                auth:true
+            },
+            {
+                path: "/stock",
+                icon: 'home',
+                component: Pages.Admin.Stock,
+                auth:true
+            },
+            {
+                path: "/redis",
+                icon: 'home',
+                component: Pages.Admin.Redis,
+                auth:true
+            }
+
         ]
     }
     // {
@@ -61,4 +90,5 @@ const mainRoutes = [//默认路由（其实是第二层，第一层在隔壁inde
 
 export default mainRoutes;
 const userRoutes = _.find(mainRoutes, { path: '/user'}).children;
-export {userRoutes}
+const adminRoutes = _.find(mainRoutes, { path: '/admin'}).children;
+export {userRoutes, adminRoutes}

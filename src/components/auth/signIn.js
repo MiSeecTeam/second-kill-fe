@@ -63,7 +63,7 @@ class SignIn extends BaseComponent {
             // this.props.onCancel()
             this.props.history.replace("/admin/home")
         }
-        this.pushNotification("success", "Sign In Successfully As "+user.name);
+        this.pushNotification("success", "Sign In Successfully As "+user.username);
     }
 
     renderLogo=()=>{

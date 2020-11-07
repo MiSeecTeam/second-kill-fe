@@ -16,13 +16,23 @@ export class OrderPayment extends BaseComponent {
     
     onClick=()=>{
         this.setState({loading:true})
-        this.timeout(2000).then(()=>{
+
+        let form = new FormData();
+        form.append('orderId', this.props.match.params.orderId);
+        
+        var successAction = (result) => {
             this.pushNotification("success", "Payment success!")
             this.setState({loading:false})
             this.timeout(1000).then(()=>{
-                this.props.history.push("/user/detail")
+                this.props.history.push("/user/list")
             })
-        })
+        }
+
+        var unsuccessAction = (result) => {
+            this.pushNotification("danger", result.message);
+        }
+
+        this.post("/order/pay", form, successAction, unsuccessAction)
     }
 
     render(){

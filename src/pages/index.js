@@ -1,2 +1,3 @@
 import * as User from './user';
-export {User}
+import * as Admin from './admin';
+export {Admin,User}

@@ -22,9 +22,8 @@ class AdminLayout extends BaseComponent {
         this.state = {
             items:[
                 {title: 'Home',icon: 'home',key: '/admin/home'},
-                {title: 'General Stat',icon: 'stock',key: '/admin/general'},
-                {title: 'Project Stat',icon: 'snippets',key: '/admin/project'},
-                {title: 'Staff Manage',icon: 'desktop',key: '/admin/staff'},
+                {title: 'Manage Stock',icon: 'stock',key: '/admin/stock'},
+                {title: 'Manage Redis',icon: 'snippets',key: '/admin/redis'},
             ],
         }
     }
