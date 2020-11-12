@@ -42,7 +42,7 @@ export class ItemList extends BaseComponent {
                 itemId={item.itemId}
                 itemName={item.itemName}
                 itemDesc={item.itemDesc}
-                price={1999.9}/>
+                price={item.priceLow}/>
         )
     }
 
