@@ -2,11 +2,16 @@ import React from "react";
 import BaseComponent from '../../../components/BaseComponent'
 import { Row, Col, Button, Select, Descriptions, Badge, Typography } from 'antd';
 import Amount from './amount'
+import AddItemModal from './addItemModal'
+import AddSkuModal from './addSkuModal'
 export class Stock extends BaseComponent {
     constructor(props){
         super(props);
         this.state={
-            items:[]
+            items:[],
+            addVis:false,
+            addVis2:false,
+            itemId:-1
         }
     }
 
@@ -20,6 +25,19 @@ export class Stock extends BaseComponent {
         }
 
         this.get("/item/all", successAction, unsuccessAction)
+    }
+    
+    addCancel=()=>{
+        this.setState({
+          addVis:false,
+          addVis2:false
+        })
+    }
+    
+    addShow=()=>{
+        this.setState({
+          addVis:true
+        })
     }
 
 
@@ -49,6 +67,14 @@ export class Stock extends BaseComponent {
         return(
             <Amount skuId={skuId} amount={amount} refresh={this.onFresh}/>
         )
+    }
+    
+
+    addSku=(itemId)=>{
+        this.setState({
+            addVis2:true,
+            itemId:itemId
+        })
     }
 
     deleteItem=(itemId)=>{
@@ -82,7 +108,8 @@ export class Stock extends BaseComponent {
                             {item.skuDetailList.map(this.renderSku)}
                         </Descriptions.Item>
                         <Descriptions.Item label="Operation" span={3}>
-                            <Button type="primary" style={{marginRight:40}}>E d i t</Button>
+                            <Button type="primary"  onClick={()=>{this.addSku(item.itemId)}} 
+                                style={{marginRight:40}}>AddSku</Button>
                             <Button type="danger" onClick={()=>{this.deleteItem(item.itemId)}}>Delete</Button>
                         </Descriptions.Item>
                     </Descriptions>
@@ -94,7 +121,16 @@ export class Stock extends BaseComponent {
     render(){
         return (
             <Row style={styles.container} type="flex" justify="center">
+                <Col span={14}>
+                    <Row type="flex" justify="end" style={{marginRight:100}}>
+                        <Button type="primary" onClick={this.addShow}>
+                            Add Item
+                        </Button>
+                    </Row>
+                </Col>
                 {this.state.items.map(this.renderItem)}
+                <AddItemModal visible={this.state.addVis} onCancel={this.addCancel}/>
+                <AddSkuModal visible={this.state.addVis2} onCancel={this.addCancel} itemId={this.state.itemId}/>
             </Row>
         )
     }

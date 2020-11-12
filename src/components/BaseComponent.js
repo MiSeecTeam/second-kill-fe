@@ -6,11 +6,11 @@ var moment = require('moment');
 export class BaseComponent extends Component {
     
     // local
-    // ip = "http://localhost:8081";  
+    ip = "http://localhost:8081";  
     // local_peer
     // ip = "http://172.17.139.248:3000";  
     // remote
-    ip = "http://182.92.126.13:8081";
+    // ip = "http://182.92.126.13:8081";
     // remote Azure
     // ip = "http://nyako.moe:3000"
 
