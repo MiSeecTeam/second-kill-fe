@@ -7,9 +7,12 @@ export class Redis extends BaseComponent {
     constructor(props){
         super(props);
         this.state={
-            itemCount:3,
-            skuCount:6,
-            text:"Unknown"
+            itemCount:'-',
+            skuCount:'-',
+            messageReady:'-',
+            messageUnack:'-',
+            text:"Unknown",
+            text2:"Unknown"
         }
     }
 
@@ -25,6 +28,18 @@ export class Redis extends BaseComponent {
         }
 
         this.get("/item/count", successAction, unsuccessAction)
+
+        var successAction2 = (result) => {
+            this.setState({messageReady:result.content.queue_totals.message_ready,messageUnack:result.content.queue_totals.message_unacknowledged,text2:"Running"})
+            this.pushNotification("success", "MQ Status Refreshed");
+        }
+
+        var unsuccessAction2 = (result) => {
+            this.setState({messageReady:'-',messageUnack:'-',text2:"Unknown"})
+            this.pushNotification("danger", result.message);
+        }
+
+        this.get("/mqMonitorStat", successAction2, unsuccessAction2)
     }
 
     onClick=()=>{
@@ -67,6 +82,25 @@ export class Redis extends BaseComponent {
                         <Row type="flex" justify="start">
                             <Statistic style={{marginLeft:10}} title="Item Counts" value={this.state.itemCount} />     
                             <Statistic style={{marginLeft:30}} title="Sku Counts" value={this.state.skuCount} />
+                            <Divider/>
+                        </Row>
+                    </Col>
+                    
+                    <Col span={18} style={{marginTop:20}}>
+                        <Row type="flex" justify="start">
+                            <Col span={24}>
+                                <Title style={{marginLeft:10,marginTop:20}} level={3}>
+                                    RabbitMQ Status
+                                </Title>
+                            </Col>
+                            <Badge style={{marginLeft:20}} status="processing" text={this.state.text2} />
+                            <Divider/>
+                        </Row>
+                    </Col>
+                    <Col span={18} style={{marginTop:20}}>
+                        <Row type="flex" justify="start">
+                            <Statistic style={{marginLeft:10}} title="Message Ready" value={this.state.messageReady} />     
+                            <Statistic style={{marginLeft:30}} title="Message Unack" value={this.state.messageUnack} />
                             <Divider/>
                         </Row>
                     </Col>

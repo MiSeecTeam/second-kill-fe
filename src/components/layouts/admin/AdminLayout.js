@@ -23,7 +23,7 @@ class AdminLayout extends BaseComponent {
             items:[
                 {title: 'Home',icon: 'home',key: '/admin/home'},
                 {title: 'Manage Stock',icon: 'stock',key: '/admin/stock'},
-                {title: 'Manage Redis',icon: 'snippets',key: '/admin/redis'},
+                {title: 'Manage MWs',icon: 'snippets',key: '/admin/mws'},
             ],
         }
     }

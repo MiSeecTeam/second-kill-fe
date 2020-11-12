@@ -78,7 +78,7 @@ const mainRoutes = [//默认路由（其实是第二层，第一层在隔壁inde
                 auth:true
             },
             {
-                path: "/redis",
+                path: "/mws",
                 icon: 'home',
                 component: Pages.Admin.Redis,
                 auth:true
