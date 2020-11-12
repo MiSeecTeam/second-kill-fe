@@ -51,6 +51,12 @@ const mainRoutes = [//默认路由（其实是第二层，第一层在隔壁inde
                 icon: 'order',
                 component: wrap(Pages.User.OrderPayment),
                 auth:true
+            },
+            {
+                path: "/orderlist",
+                icon: 'order',
+                component: wrap(Pages.User.OrderList),
+                auth:true
             }
         ]
     },
