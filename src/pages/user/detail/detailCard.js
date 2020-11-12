@@ -11,31 +11,34 @@ class DetailCard extends BaseComponent {
         this.state={
             isLoading:true,
             skus:[],
-            skuId:-1
+            skuId:-1,
+            price:'-'
         }
     }
 
     componentDidMount(){
-        this.timeout(1400).then(()=>{
-            this.dispDetail()
-        })
+        this.dispDetail()
     }
 
-    dispDetail(){
-        const tempSkus=[{skuId:10001001,skuName:"Silver"},
-            {skuId:10001002,skuName:"Black"},
-            {skuId:10001003,skuName:"Golden"},
-            {skuId:10001004,skuName:"Scarlet"}]
-        this.setState({isLoading:false,skus:tempSkus})
+    dispDetail=()=>{
+        var successAction = (result) => {
+            this.setState({skus:result.content.skuDetailList,isLoading:false,price:result.content.priceLow})
+        }
+
+        var unsuccessAction = (result) => {
+            this.pushNotification("danger", result.message);
+        }
+
+        this.get("/item/sku/all?itemId="+this.props.itemId, successAction, unsuccessAction)
     }
 
     onChangeSku=({ target: { value } })=>{
-        this.setState({skuId:value})
+        this.setState({skuId:value.skuId,price:value.skuPrice})
     }
 
     mapSkuOption=(sku)=>{
         return(
-            <Radio.Button style={styles.btn} value={sku.skuId}>
+            <Radio.Button style={styles.btn} value={sku}>
                 <Row type='flex' justify='center' align="middle" style={{height:50}}>
                     {sku.skuName}
                 </Row>
@@ -92,7 +95,7 @@ class DetailCard extends BaseComponent {
                 </Row>
                 
                 <Row style={styles.container2} type='flex' justify='start'>
-                    <Title level={2}>{"￥"+this.props.price}</Title>
+                    <Title level={2}>{"￥"+this.state.price}</Title>
                 </Row>
                 <Divider style={{margin:0}}/>
                 {this.renderSku()}
@@ -111,7 +114,6 @@ const styles = {
         marginLeft:0
     },
     btn:{
-        width:100,
         height:50,
         fontSize:18,
         margin:20,

@@ -14,7 +14,8 @@ export class ItemDetail extends BaseComponent {
         super(props);
         this.state={
             isLoading:true,
-            item:{}
+            item:{},
+            price:"-"
         }
     }
 
@@ -41,7 +42,6 @@ export class ItemDetail extends BaseComponent {
                 <Col xs={12} sm={12} lg={8} style={{zIndex:1}}>
                     <Row type='flex' justify='start' style={{marginTop:30}} >
                         <Skeleton active paragraph={{ rows: 4 }} />
-                        <Skeleton active paragraph={{ rows: 7 }} />
                     </Row>
                 </Col>
             )
@@ -50,9 +50,10 @@ export class ItemDetail extends BaseComponent {
                 <Col xs={12} sm={12} lg={8} style={{zIndex:1}}>
                     <Row type='flex' justify='start' style={{marginTop:30}} >
                         <DetailCard 
+                        itemId={item.itemId}
                         itemName={item.itemName}
                         itemDesc={item.itemDesc}
-                        price={1999.8}/>
+                        setPrice={this.setPrice}/>
                     </Row>
                 </Col>
             )
