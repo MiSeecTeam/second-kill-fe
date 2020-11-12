@@ -41,7 +41,7 @@ export class OrderPayment extends BaseComponent {
                 <Col xs={24} sm={20} lg={15}>
                     <Text style={{fontSize:40}}>Payment</Text>
                     <Row type='flex' justify='center' style={{marginBottom:200}}>
-                        <PayDetail skuId={this.props.match.params.skuId} orderId={this.props.match.params.orderId}/>
+                        <PayDetail orderId={this.props.match.params.orderId}/>
                     </Row>
                     <Row type='flex' justify='end' style={{width:"100%",marginRight:20}}>
                         <Button 

@@ -21,14 +21,14 @@ export default class OrderDetail extends BaseComponent {
         if(this.props.skuId){
             var successAction=(result)=>{
                 this.setState({
-                    skuId:this.props.skuId,
-                    itemName:"",
-                    itemDesc:"",
-                    skuName:"",
-                    price:1999.9
+                    skuId:result.content.content.skuId,
+                    itemName:result.content.content.itemId,
+                    skuName:result.content.content.skuName,
+                    itemDesc:result.content.content.skuDesc,
+                    price:result.content.content.skuPrice
                 })
             }
-            // this.get("/graph/getProject?projectId="+this.props.match.params.pid,successAction)
+            this.get("/item/getSku?skuId="+this.props.skuId,successAction)
         }
     }
 
@@ -56,7 +56,7 @@ export default class OrderDetail extends BaseComponent {
                         </Col>
 
                         <Col span={6} >
-                            <Row style={styles.courseItem}>Product Name</Row>
+                            <Row style={styles.courseItem}>ProductId</Row>
                             <Typography style={styles.content}>
                                 {itemName}
                             </Typography>

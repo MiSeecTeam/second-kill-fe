@@ -8,7 +8,8 @@ export default class PayDetail extends BaseComponent {
     constructor(props){
         super(props);
         this.state={
-            skuId:this.props.skuId,
+            orderId:this.props.orderId,
+            skuId:10003001,
             itemName:"Wristwatch by Ted Baker London",
             skuName:"Silver Type",
             itemDesc:"By the 1930s the wristwatch had almost completely supplanted the pocket watch.",
@@ -18,17 +19,17 @@ export default class PayDetail extends BaseComponent {
     }
     
     componentDidMount(){
-        if(this.props.skuId){
+        if(this.props.orderId){
             var successAction=(result)=>{
                 this.setState({
-                    skuId:this.props.skuId,
-                    itemName:"",
-                    itemDesc:"",
-                    skuName:"",
+                    skuId:result.content.skuId,
+                    itemName:result.content.itemName,
+                    itemDesc:result.content.itemDesc,
+                    skuName:result.content.skuName,
                     price:1999.9
                 })
             }
-            // this.get("/graph/getProject?projectId="+this.props.match.params.pid,successAction)
+            this.get("/order/getOrderDetail?orderId="+this.props.orderId,successAction)
         }
     }
 
