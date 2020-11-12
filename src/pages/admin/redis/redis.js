@@ -14,13 +14,31 @@ export class Redis extends BaseComponent {
     }
 
     onFresh=()=>{
-        this.setState({itemCount:3,skuCount:6,text:"Running"})
+        var successAction = (result) => {
+            this.setState({itemCount:result.content.itemCount,skuCount:result.content.skuCount,text:"Running"})
+            this.pushNotification("success", "Redis Status Refreshed");
+        }
+
+        var unsuccessAction = (result) => {
+            this.setState({itemCount:'-',skuCount:'-',text:"Unknown"})
+            this.pushNotification("danger", result.message);
+        }
+
+        this.get("/item/count", successAction, unsuccessAction)
     }
 
     onClick=()=>{
+        this.onFresh();
+    }
+
+    componentDidMount(){
+        this.onFresh();
+    }
+
+    refreshRedis=()=>{
         var successAction = (result) => {
-            this.onFresh()
             this.pushNotification("success", result.message);
+            this.onFresh();
         }
 
         var unsuccessAction = (result) => {
@@ -28,10 +46,7 @@ export class Redis extends BaseComponent {
         }
 
         this.get("/config/refresh", successAction, unsuccessAction)
-    }
 
-    componentDidMount(){
-        this.onFresh();
     }
 
     render(){
@@ -51,7 +66,7 @@ export class Redis extends BaseComponent {
                     <Col span={18} style={{marginTop:20}}>
                         <Row type="flex" justify="start">
                             <Statistic style={{marginLeft:10}} title="Item Counts" value={this.state.itemCount} />     
-                            <Statistic style={{marginLeft:30}} title="Sku Counts" value={this.state.sku} />
+                            <Statistic style={{marginLeft:30}} title="Sku Counts" value={this.state.skuCount} />
                             <Divider/>
                         </Row>
                     </Col>
@@ -62,7 +77,7 @@ export class Redis extends BaseComponent {
                     </Col>
                     <Col span={18} style={{marginTop:20}}>
                         <Row type="flex" justify="start">
-                            <Button onClick={this.onClick} style={{width:200}} type="primary" size="large"> Update Redis Buffer </Button>
+                            <Button onClick={this.refreshRedis} style={{width:200}} type="primary" size="large"> Update Redis Buffer </Button>
                         </Row>
                     </Col>
             </Row>
